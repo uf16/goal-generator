@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Goal Generator</title>
+    <meta name="description" content="A random goal generator that helps you set personal, skill, or other goals based on difficulty levels.">
+    <meta name="keywords" content="goal generator, random goals, personal goals, skill goals, goal setting">
+    <meta name="author" content="Uriel Levin">
+    <link rel="icon" href="favicon_io/favicon.ico" type="image/x-icon">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap');
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
+            color: #fff;
+            text-align: center;
+            padding: 40px;
+        }
+        h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: linear-gradient(90deg, #ff8800, #ff4b2b);
+            -webkit-background-clip: text;
+            background-clip: text;  /* Added the standard background-clip property */
+            -webkit-text-fill-color: transparent;
+        }
+        select, button {
+            margin: 20px;
+            padding: 16px;
+            font-size: 20px;
+            border-radius: 12px;
+            border: none;
+            outline: none;
+            background: #222;
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 4px 10px rgba(255, 75, 43, 0.3);
+        }
+        select:hover, button:hover {
+            transform: scale(1.08);
+        }
+        button {
+            background: linear-gradient(135deg, #ff8800, #ff4b2b);
+            font-weight: bold;
+            cursor: pointer;
+            padding: 16px 24px;
+            transition: all 0.3s ease;
+            border-radius: 50px;
+            font-size: 22px;
+            box-shadow: 0 6px 18px rgba(255, 75, 43, 0.6);
+            position: relative;
+            overflow: hidden;
+        }
+        button:active {
+            transform: scale(0.95);
+        }
+        button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: width 0.3s ease, height 0.3s ease;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+        }
+        button:active::after {
+            width: 0;
+            height: 0;
+            opacity: 1;
+        }
+        #goal {
+            margin-top: 40px;
+            font-size: 24px;
+            font-weight: bold;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 6px 18px rgba(255, 255, 255, 0.3);
+            width: 90%;
+            max-width: 600px;
+            backdrop-filter: blur(15px);
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            select, button {
+                font-size: 18px;
+                padding: 14px;
+            }
+            #goal {
+                font-size: 22px;
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Random Goal Generator</h1>
+    <label for="goalType">Select Goal Type:</label>
+    <select id="goalType">
+        <option value="all">All Categories</option>
+        <option value="fitness">Fitness</option>
+        <option value="finance">Finance</option>
+        <option value="career">Career</option>
+        <option value="skill">Skills</option>
+        <option value="personal">Personal Development</option>
+    </select>
+    <label for="difficulty">Select Difficulty:</label>
+    <select id="difficulty">
+        <option value="easy">Easy</option>
+        <option value="medium">Medium</option>
+        <option value="hard">Hard</option>
+    </select>
+    <button onclick="generateGoal()">Generate Goal</button>
+    <p id="goal"></p>
+    <script>
+        function generateGoal() {
+            const goalElement = document.getElementById("goal");
+            goalElement.style.opacity = 0;
+            setTimeout(() => {
+                const goals = {
+                    fitness: {
+        easy: [
+            "Run 3km in under 20 minutes",
+            "Do 20 push-ups in a row",
+            "Hold a 1-minute plank",
+            "Do 5 pull-ups",
+            "Run 1km without stopping"
+        ],
+        medium: [
+            "Run 5km in under 25 minutes",
+            "Do 50 push-ups in a row",
+            "Hold a 2-minute plank",
+            "Do 10 pull-ups",
+            "Squat your bodyweight"
+        ],
+        hard: [
+            "Run 10km in under 50 minutes",
+            "Do 100 push-ups in a row",
+            "Hold a 5-minute plank",
+            "Do a muscle-up",
+            "Run a full marathon (42.2km)",
+            "Bench press 100kg",
+            "Deadlift 2x your bodyweight"
+        ]
+    },
+    finance: {
+        easy: [
+        "Save $1,000",
+        "Track your expenses for 30 days",
+        "Make a personal monthly budget",
+        "Avoid eating out for a full week",
+        "Read a finance book"
+    ],
+    medium: [
+        "Save $10,000 in a year",
+        "Invest in stocks, ETFs, or crypto for the first time",
+        "Build an emergency fund (3-6 months of expenses)",
+        "Start a side hustle that makes at least $500/month",
+        "Pay off a small debt completely"
+    ],
+    hard: [
+        "Save $100,000 in 5 years",
+        "Make $10,000 in a single month",
+        "Own a rental property or other passive income source",
+        "Invest $50,000+ in assets (stocks, crypto, real estate, business)",
+        "Reach financial independence (live off investments/passive income)"
+    ]
+},
+    career: {
+        easy: [
+        "Update your resume and LinkedIn profile",
+        "Take an online course to learn a new skill",
+        "Network with 5 professionals in your field",
+        "Write and publish a professional article",
+        "Improve your public speaking skills"
+    ],
+    medium: [
+        "Get a promotion or a raise",
+        "Master a high-demand skill in your industry",
+        "Attend a professional conference or seminar",
+        "Build a personal brand (blog, social media, portfolio)",
+        "Lead a project at work"
+    ],
+    hard: [
+        "Start your own business or freelance full-time",
+        "Become a recognized expert in your field",
+        "Earn a six-figure salary",
+        "Get a job at a top company in your industry",
+        "Build and manage a successful team"
+    ]
+    },
+    skill: {
+        easy: [
+                "Learn a basic recipe and cook a meal",
+                "Complete a beginner’s workout routine for a week",
+                "Write a short story or poem of at least 300 words",
+                "Spend 30 minutes learning a new language on a language app",
+                "Complete a beginner’s puzzle or brain teaser each day for a week"
+            ],
+            medium: [
+                "Master a basic song on the piano or another instrument",
+                "Reach 1000 elo in chess.",
+                "Start learning a new programming language for 1 hour per day for 2 weeks",
+                "Create a simple website or app from scratch",
+                "Read a book or complete an online course on a new skill in 3 weeks"
+            ],
+            hard: [
+                "Complete an advanced-level online coding course and build a project",
+                "Master a challenging recipe and cook it for a group of friends or family",
+                "Write, produce, and edit a short film or YouTube video",
+                "Complete a 30-day fitness challenge with progressively harder exercises",
+                "Learn a new language to conversational level in 3 months"
+            ]
+    },
+    personal: {
+        easy: [
+                "Spend 30 minutes meditating or doing breathing exercises",
+                "Call a friend or family member you haven't talked to in a while",
+                "Start a gratitude journal and write 3 things you're grateful for today",
+                "Declutter your workspace for 15 minutes",
+                "Take a 20-minute walk outside to clear your mind"
+            ],
+            medium: [
+                "Set aside 1 hour to read a personal development book",
+                "Organize a small gathering with friends or family",
+                "Try a new hobby or craft for 1 hour",
+                "Take a digital detox for 24 hours",
+                "Reflect on your goals and write a personal mission statement"
+            ],
+            hard: [
+                "Complete a 30-day self-care challenge",
+                "Start a personal blog or vlog and post at least once a week for a month",
+                "Volunteer for a cause you're passionate about for 10 hours a month",
+                "Commit to a fitness routine or activity for 3 months",
+                "Travel to a new place you’ve never been before and fully immerse yourself in the experience"
+            ]
+    }
+};
+
+
+
+                const type = document.getElementById("goalType").value;
+                const difficulty = document.getElementById("difficulty").value;
+                let goalList = [];
+                if (type === "all") {
+                    for (let category in goals) {
+                        goalList = goalList.concat(goals[category][difficulty]);
+                    }
+                } else {
+                    goalList = goals[type][difficulty];
+                }
+                const randomGoal = goalList[Math.floor(Math.random() * goalList.length)];
+                goalElement.innerText = `Your Goal: ${randomGoal}`;
+                goalElement.style.opacity = 1;
+            }, 300);
+        }
+    </script>
+</body>
+</html>
